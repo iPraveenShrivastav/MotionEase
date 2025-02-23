@@ -17,10 +17,10 @@ let package = Package(
             name: "MotionEase",
             targets: ["AppModule"],
             bundleIdentifier: "com.MotionEase",
-            teamIdentifier: "VWHS8QVPVW",
+            teamIdentifier: "45NY49AKRX",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .asset("AppIcon"),
+            appIcon: .placeholder(icon: .car),
             accentColor: .presetColor(.teal),
             supportedDeviceFamilies: [
                 .pad,

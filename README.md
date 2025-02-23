@@ -9,7 +9,6 @@ MotionEase is an innovative iOS application designed to help users manage and al
 - Real-time device orientation feedback
 - Stability score monitoring
 - Customizable exercise duration
-- Haptic feedback for enhanced user experience
 
 ### 2. Breathing Exercise
 - Three intensity levels (Mild, Moderate, Severe)
