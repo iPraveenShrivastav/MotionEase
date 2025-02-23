@@ -31,11 +31,8 @@ struct HorizonGazeView: View {
     @State private var calibrationMode = false
     @State private var calibrationProgress: Double = 0
     @State private var calibrationTimer: Timer?
-    // Add new properties for enhanced visual feedback
     @State private var dotOpacity: Double = 1.0
-    private let focusPointSize: CGFloat = 50  // Larger, stable size for better focus
-    
-    // Add color properties for visual feedback
+    private let focusPointSize: CGFloat = 50
     private let focusColors = [
         Color.blue.opacity(0.8),
         Color.cyan.opacity(0.8),
@@ -45,10 +42,10 @@ struct HorizonGazeView: View {
 
     private let recommendedDuration: TimeInterval = 180 // 3 minutes
     private let targetZoneHeight: CGFloat = 120
-    private let movementRadius: CGFloat = 200 // Increased for larger movement area
+    private let movementRadius: CGFloat = 200
     
     private var centerY: CGFloat {
-        UIScreen.main.bounds.height * 0.5 // Center of the screen
+        UIScreen.main.bounds.height * 0.5
     }
     
     private var targetZone: ClosedRange<CGFloat> {
@@ -75,7 +72,7 @@ struct HorizonGazeView: View {
     @State private var isDeviceStable = false
     @State private var lastMotionUpdate = Date()
     @State private var motionSmoothingQueue: [CGPoint] = []
-    private let queueSize = 5 // For motion smoothing
+    private let queueSize = 5
     private let motionThreshold: Double = 0.05
     
     private let motionThresholdForStability: Double = 0.03
@@ -210,7 +207,6 @@ struct HorizonGazeView: View {
         .cornerRadius(20)
     }
     
-    // Add this new button style
     struct ControlButtonStyle: ButtonStyle {
         let isEnabled: Bool
         
@@ -223,7 +219,6 @@ struct HorizonGazeView: View {
         }
     }
     
-    // Add function to clamp focus point within movement radius
     private func clampedFocusPoint(in geometry: GeometryProxy) -> CGPoint {
         let centerX = geometry.size.width / 2
         let deltaX = focusPoint.x - centerX
@@ -240,7 +235,6 @@ struct HorizonGazeView: View {
         return focusPoint
     }
     
-    // Update focus point view
     private var focusPointView: some View {
         ZStack {
             // Outer glow
@@ -259,7 +253,6 @@ struct HorizonGazeView: View {
         .animation(.spring(response: 0.3), value: isInTargetZone)
     }
     
-    // Update status bar to be more subtle
     private var statusBar: some View {
         HStack {
             // Device orientation
@@ -374,7 +367,7 @@ struct HorizonGazeView: View {
                 }
                 .padding(.horizontal, 24)
                 
-                // Got it button
+             
                 Button(action: {
                     withAnimation(.spring()) {
                         showGuide = false
@@ -401,9 +394,7 @@ struct HorizonGazeView: View {
         }
         .allowsHitTesting(true)
     }
-    
-    // Helper function to get step text
-    private func getStepText(_ step: Int) -> String {
+        private func getStepText(_ step: Int) -> String {
         switch step {
         case 1: return "Hold your device at eye level"
         case 2: return "Focus on the white dot and keep it within the green zone"
@@ -447,13 +438,12 @@ struct HorizonGazeView: View {
             exerciseDuration = 0
             exerciseTimer?.invalidate()
             
-            // Set the focus point to the center of the green rectangle
+            
             let screenWidth = UIScreen.main.bounds.width
             let greenZoneWidth = screenWidth * 0.8
             let greenZoneCenterX = (screenWidth - greenZoneWidth) / 2 + (greenZoneWidth / 2)
-            let greenZoneCenterY = centerY // Center Y position of the green rectangle
+            let greenZoneCenterY = centerY
             
-            // Reset focus point to the center of the green rectangle
             focusPoint = CGPoint(x: greenZoneCenterX, y: greenZoneCenterY)
             
             let timer = Timer(timeInterval: 1, repeats: true) { _ in
@@ -479,25 +469,21 @@ struct HorizonGazeView: View {
             exerciseTimer = nil
             motionManager.stopMotionUpdates()
             
-            // Reset focus point to the center of the green rectangle
+            
             let screenWidth = UIScreen.main.bounds.width
             let greenZoneWidth = screenWidth * 0.8
             let greenZoneCenterX = (screenWidth - greenZoneWidth) / 2 + (greenZoneWidth / 2)
-            let greenZoneCenterY = centerY // Center Y position of the green rectangle
+            let greenZoneCenterY = centerY
             
             focusPoint = CGPoint(x: greenZoneCenterX, y: greenZoneCenterY)
         }
     }
     
     private func setupView() {
-        setupHaptics()
-        // Set focus point to a fixed position
         let screenWidth = UIScreen.main.bounds.width
         let greenZoneWidth = screenWidth * 0.8
         let greenZoneCenterX = (screenWidth - greenZoneWidth) / 2 + (greenZoneWidth / 2)
-        let greenZoneCenterY = centerY // Center Y position of the green rectangle
-        
-        // Set the focus point to the center of the green rectangle
+        let greenZoneCenterY = centerY
         focusPoint = CGPoint(x: greenZoneCenterX, y: greenZoneCenterY)
     }
     
@@ -509,16 +495,6 @@ struct HorizonGazeView: View {
         motionManager.stopMotionUpdates()
     }
     
-    private func setupHaptics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-        
-        do {
-            hapticEngine = try CHHapticEngine()
-            try hapticEngine?.start()
-        } catch {
-            print("Haptic engine creation failed: \(error.localizedDescription)")
-        }
-    }
     
     private func updateStabilityScore() {
         let distanceFromCenter = abs(focusPoint.y - centerY)
@@ -544,29 +520,27 @@ struct HorizonGazeView: View {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
         
-        // Calculate green rectangle boundaries
+
         let greenZoneWidth = screenWidth * 0.8
         let greenZoneLeft = (screenWidth - greenZoneWidth) / 2
         let greenZoneRight = greenZoneLeft + greenZoneWidth
         
-        // Define movement boundaries
-        let upwardExtension: CGFloat = 40 // Allow slight upward movement
-        let minY = centerY - targetZoneHeight - upwardExtension // Allow upward movement
-        let maxY = screenHeight * 0.85 // Limit downward movement to just above control panele
-        
-        // Adjust sensitivities
+
+        let upwardExtension: CGFloat = 40
+        let minY = centerY - targetZoneHeight - upwardExtension
+        let maxY = screenHeight * 0.85
+       
         let verticalSensitivity: Double = 250
         let horizontalSensitivity: Double = 250
         
-        // Calculate movements
+
         let verticalFactor = CGFloat(motionManager.pitch * verticalSensitivity)
         let horizontalFactor = CGFloat(motionManager.yaw * horizontalSensitivity)
         
-        // Calculate new position
+   
         let newX = screenWidth / 2 + horizontalFactor
-        let newY = centerY - verticalFactor // Inverted for natural movement
+        let newY = centerY - verticalFactor 
         
-        // Clamp the position to movement boundaries
         let clampedX = max(greenZoneLeft, min(greenZoneRight, newX))
         let clampedY = max(minY, min(maxY, newY))
         
@@ -595,15 +569,10 @@ struct HorizonGazeView: View {
     }
     
     private func updateVisualFeedback() {
-        // Update dot size based on stability
+
         withAnimation(.spring()) {
             dotOpacity = isInTargetZone ? 1.0 : 0.7
             currentColorIndex = isInTargetZone ? 2 : (isDeviceStable ? 1 : 0)
-        }
-        
-        // Provide haptic feedback when entering/leaving target zone
-        if isInTargetZone {
-            
         }
     }
 }

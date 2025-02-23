@@ -16,11 +16,10 @@ struct P6Step {
 }
 struct P6GuideView: View {
     @State private var selectedSection = 0
-    private let cardWidth = UIScreen.main.bounds.width - 40 // 20 points padding on each side
-    
+    private let cardWidth = UIScreen.main.bounds.width - 40
     var body: some View {
         VStack(spacing: 0) {
-            // Segmented control in a fixed position
+            
             Picker("Section", selection: $selectedSection) {
                 Text("Guide").tag(0)
                 Text("Research").tag(1)
@@ -30,10 +29,10 @@ struct P6GuideView: View {
             .padding(.horizontal)
             .padding(.vertical, 12)
             
-            // Scrollable content below the segmented control
+           
             ScrollView {
                 VStack(spacing: 24) {
-                    // Content sections with transitions
+   
                     Group {
                         switch selectedSection {
                         case 0:
@@ -202,10 +201,6 @@ struct P6GuideView: View {
         }
     }
 }
-    // Update expertTipsSection
-    
-
-    // Update ResearchStat struct
     struct ResearchStat {
         let title: String
         let description: String
@@ -213,7 +208,6 @@ struct P6GuideView: View {
         let icon: String
     }
 
-    // Update Tips struct
     struct Tip {
         let title: String
         let description: String
@@ -221,7 +215,7 @@ struct P6GuideView: View {
         let icon: String
     }
 
-    // Update research data
+
     private let researchStats = [
         ResearchStat(
             title: "Clinical Effectiveness",
@@ -243,7 +237,7 @@ struct P6GuideView: View {
         )
     ]
 
-    // Update tips data
+
     private let tips = [
         Tip(
             title: "Timing is Key",
@@ -327,13 +321,6 @@ struct P6GuideView: View {
             .cornerRadius(16)
         }
 
-        // Add advanced techniques data
-       
-        
-        // Rest of the properties remain the same
-    
-
-    // Add new TechniqueItem model
     struct TechniqueItem: Identifiable {
         let id = UUID()
         let title: String
@@ -343,7 +330,7 @@ struct P6GuideView: View {
     }
 
 
-    // Add new TechniqueCard view
+
     struct TechniqueCard: View {
         let technique: TechniqueItem
         
@@ -392,7 +379,6 @@ struct P6GuideView: View {
     ]
 
 
-// Supporting Views for P6GuideView
 struct P6StepCard: View {
     let step: P6Step
     
@@ -419,6 +405,7 @@ struct P6StepCard: View {
                     .padding(.horizontal)
             }
         }
+        
         .padding()
         .background(Color(.systemBackground))
         .cornerRadius(16)
@@ -455,6 +442,7 @@ struct ResearchItem: View {
     
     var body: some View {
         HStack {
+            
             Text(percentage)
                 .font(.title2)
                 .fontWeight(.bold)

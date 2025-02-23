@@ -28,6 +28,7 @@ struct BreathingExerciseView: View {
             if showingSeverityPicker {
                 severitySelectionView
             } else {
+                
                 exerciseView
             }
         }

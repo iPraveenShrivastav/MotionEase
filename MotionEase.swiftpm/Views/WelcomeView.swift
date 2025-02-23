@@ -11,6 +11,7 @@ import SwiftUI
 struct WelcomeView: View {
     @State private var isActive = false
     
+    
     var body: some View {
         if isActive {
             OnboardingView()

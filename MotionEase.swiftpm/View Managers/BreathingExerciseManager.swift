@@ -75,6 +75,7 @@ class BreathingExerciseManager: ObservableObject {
         }
     }
     
+    
     func startExercise() {
         isActive = true
         isPaused = false

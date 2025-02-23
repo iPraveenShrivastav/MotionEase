@@ -17,6 +17,7 @@ struct OnboardingView: View {
         NavigationView {
             ZStack {
                 TabView(selection: $currentPage) {
+                    
                     // Slide 1: About Motion Sickness
                     onboardingSlide(
                         title: "What is Motion Sickness?",
@@ -28,6 +29,7 @@ struct OnboardingView: View {
                     
                     // Slide 2: Horizon Gazing
                     onboardingSlide(
+                        
                         title: "Horizon Gazing Exercise",
                         description: "Engage in horizon gazing exercises to help stabilize your vision and reduce symptoms of motion sickness.",
                         icon: "eye.circle.fill",
@@ -37,6 +39,7 @@ struct OnboardingView: View {
                     
                     // Slide 3: Breathing Exercises
                     onboardingSlide(
+                        
                         title: "Breathing Techniques",
                         description: "Practice guided breathing exercises to promote relaxation and alleviate discomfort during travel.",
                         icon: "lungs.fill",
@@ -55,60 +58,59 @@ struct OnboardingView: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 
-                // Overlay for Skip and Get Started buttons
                 VStack {
                     HStack {
                         Spacer()
                         Button(action: {
-                            isActive = true // Skip to main content
+                            isActive = true
                         }) {
                             Text("Skip")
                                 .font(.system(size: 17, weight: .semibold))
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
-                                .background(Color.black.opacity(0.5)) // Background for visibility
+                                .background(Color.black.opacity(0.5))
                                 .cornerRadius(10)
                         }
-                        .padding(.top, 20) // Adjust top padding for spacing
-                        .padding(.trailing, 20) // Right padding
+                        .padding(.top, 20)
+                        .padding(.trailing, 20)
                     }
                     
                     Spacer()
                     
-                    // Page Indicator
+
                     PageIndicator(totalPages: 4, currentPage: currentPage)
-                        .padding(.bottom, 20) // Add some padding below the indicator
-                    
-                    // Buttons
+                        .padding(.bottom, 20)
                     HStack {
                         Spacer()
                         Button(action: {
                             if currentPage < 3 {
-                                currentPage += 1 // Move to the next slide
+                                currentPage += 1
                             } else {
-                                isActive = true // Go to the main content
+                                isActive = true
                             }
                         }) {
                             Text(currentPage == 3 ? "Get Started" : "Next")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .padding()
-                                .frame(maxWidth: .infinity) // Make button width same as card width
+                                .frame(maxWidth: .infinity)
                                 .background(Color.blue)
                                 .cornerRadius(10)
                         }
-                        .padding(.horizontal, 20) // Adjust horizontal padding to match card width
+                        .padding(.horizontal, 20)
                         .padding(.bottom, 40)
                     }
                 }
             }
             .navigationBarTitle("Motion Ease", displayMode: .inline)
             .fullScreenCover(isPresented: $isActive) {
-                ContentView() // Navigate to main content
+                ContentView() 
             }
         }
     }
+    
+    
     struct PageIndicator: View {
         let totalPages: Int
         let currentPage: Int
@@ -125,8 +127,8 @@ struct OnboardingView: View {
     }
 
 
-
     struct PrimaryButtonStyle: ButtonStyle {
+        
         func makeBody(configuration: Configuration) -> some View {
             configuration.label
                 .padding(.horizontal, 30)
@@ -137,11 +139,10 @@ struct OnboardingView: View {
                 .scaleEffect(configuration.isPressed ? 0.95 : 1)
         }
     }
-    // Function to create an onboarding slide
     private func onboardingSlide(title: String, description: String, icon: String, backgroundColor: Color, tag: Int) -> some View {
         VStack(spacing: 20) {
-            Spacer() // Pushes content to the center
             
+            Spacer()
             // Icon
             Image(systemName: icon)
                 .resizable()
@@ -163,14 +164,14 @@ struct OnboardingView: View {
                 .padding(.horizontal, 32)
                 .fixedSize(horizontal: false, vertical: true)
             
-            Spacer() // Pushes content to the center
+            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.45) // Set card height to 45% of the screen height
-        .padding(.vertical, 20) // Adjust vertical padding to center the content
+        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.45)
+        .padding(.vertical, 20)
         .background(backgroundColor)
         .cornerRadius(25)
         .padding(.horizontal, 20)
-        .padding(.top, 0) // Set to 0 to shift the card upwards further
+        .padding(.top, 0)
         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
         .tag(tag)
     }

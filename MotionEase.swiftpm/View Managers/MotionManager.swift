@@ -30,19 +30,16 @@ class MotionManager: ObservableObject {
             guard let self = self,
                   let motion = motion else { return }
             
-            // When device is vertical, use yaw for horizontal movement
             self.yaw = motion.attitude.yaw
             self.pitch = motion.attitude.pitch
-            
-            // Calculate roll based on device orientation
+           
             let x = motion.gravity.x
             let y = motion.gravity.y
             let z = motion.gravity.z
-            
-            // Use yaw for horizontal movement when vertical
-            if abs(z) < 0.45 { // Device is more vertical
+           
+            if abs(z) < 0.45 {
                 self.roll = motion.attitude.yaw
-            } else { // Device is more horizontal
+            } else { 
                 self.roll = atan2(y, z)
             }
         }
